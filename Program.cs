@@ -2,12 +2,12 @@
 
 namespace aplikasi_struk
 {
+    class Menu
+    {
+        public static string[] Category = { "Makanan", "Minuman", "Lain-lain" };
+    }
     class Program
     {
-        class Menu
-        {
-            public static string[] Category = { "Makanan", "Minuman", "Lain-lain" };
-        }
 
         static Page page;
 
@@ -16,7 +16,7 @@ namespace aplikasi_struk
             page = new Page("Dimsum Xpress", 50);
             page.WriteTitle("Selamat Datang di Dimsum Xpress Medan");
 
-            
+
 
             Console.ReadKey();
         }
