@@ -67,10 +67,10 @@ namespace aplikasi_struk
                 WriteLine(i + 1 + ". " + options[i]);
             }
         }
-        public int AskInput(string question)
+        public string AskInput(string question)
         {
             Write(question);
-            int input = int.Parse(Console.ReadLine());
+            string input = Console.ReadLine();
             return input;
         }
         private void Write(string text)
