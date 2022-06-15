@@ -24,12 +24,12 @@ namespace aplikasi_struk
         {
             page = new Page("Dimsum Xpress", 50);
             page.WriteTitle("Selamat Datang di Dimsum Xpress Medan");
-            Customer customer = new Customer(page.AskInput("Silakan masukkan nama Anda: "));
+            Customer customer = new(page.AskInput("Silakan masukkan nama Anda: "));
 
             page.ChangeTitle("Hi " + customer.Name + "! Silakan pilih menu di bawah ini ya");
             page.Clear();
 
-            Order order = new Order();
+            Order order = new();
             Order.OrderItem orderItem = order.NewItem();
 
             string msg = "Mau pesan apa?"; bool fired = false; // config
@@ -62,8 +62,10 @@ namespace aplikasi_struk
                 page.Loading();
             }
 
-            // Tudabes: handle inputan selain "y"
-            // Siapa aja: Bikin output pesanan
+            // Tudabes: handle inputan `confirmed` selain "y"
+            // JQ: Bikin output pesanan (lanjutan kodingan ini)
+            // FGS: Input Menu di `Menu.cs` (sekarang itu asal2an)
+            // C: Bikin fitur catatan hehehe
 
             Console.ReadLine();
             Console.ReadKey();
