@@ -8,7 +8,7 @@
 * ## Line Class
   * `Line.Draw()`
   
-* ## Clock Class 
+* ## Timer Class 
   * WIP
  
 
