@@ -27,14 +27,27 @@
 
         }
     }
+
+    class Other : Dish
+    {
+        public Other(int Id, string BaseString, int Price) : base(Id, BaseString, Price)
+        {
+
+        }
+    }
+    class Category
+    {
+        public string Name { get; }
+        public Dish[] Dishes { get; }
+        public Category(Dish[] dishes, string name)
+        {
+            Name = name;
+            Dishes = dishes;
+        }
+    }
+
     class Menu
     {
-        public static string[] Category = {
-            "Makanan",
-            "Minuman",
-            "Lain-lain"
-        };
-
         public static Dish[] MainDishes =
         {
             new Dish(1001, "Apple", 10000),
@@ -52,5 +65,17 @@
             new Beverage(3001, "Fanta", 15000),
             new Beverage(3002, "Susu", 12500)
         };
+
+        public static Other[] Others =
+        {
+            new Other(7001, "Es krim", 15000),
+            new Other(7002, "Bakpao", 12500)
+        };
+        public static Category[] Categories = {
+            new Category(MainDishes, "Makanan"),
+            new Category(Beverages, "Minuman"),
+            new Category(Others, "Lain-lain")
+        };
+
     }
 }

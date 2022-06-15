@@ -19,6 +19,7 @@ namespace aplikasi_struk
         }
         #endregion
 
+        public int TopMargin = 3;
         private void ClearLine()
         {
             Console.SetCursorPosition(0, Console.CursorTop);
@@ -27,7 +28,7 @@ namespace aplikasi_struk
         }
         public void Clear()
         {
-            ClearLine(3);
+            ClearLine(TopMargin);
         }
         private void ClearLine(int n)
         {
@@ -67,12 +68,46 @@ namespace aplikasi_struk
                 WriteLine(i + 1 + ". " + options[i]);
             }
         }
+
+        // Specific method
+        public void CreateCategoryList(Category[] categories)
+        {
+            for (int i = 0; i < categories.Length; i++)
+            {
+                WriteLine(i + 1 + ". " + categories[i].Name);
+            }
+        }
+        public void CreateDishList(Dish[] dishes)
+        {
+            for (int i = 0; i < dishes.Length; i++)
+            {
+                WriteLine(i + 1 + ". " + dishes[i].Name);
+            }
+        }
+
+
         public string AskInput(string question)
         {
             Write(question);
             string input = Console.ReadLine();
             return input;
         }
+        public string AskInput(string question, int aLength)
+        {
+            Write($"{question} [1-{aLength}]: ");
+            string input = Console.ReadLine();
+            return input;
+        }
+
+        public void Loading(int interval = 500, int n = 3)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                Write(".");
+                System.Threading.Thread.Sleep(interval);
+            }
+        }
+
         private void Write(string text)
         {
             Console.Write(text);

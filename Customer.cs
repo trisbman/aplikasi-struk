@@ -11,6 +11,7 @@ namespace aplikasi_struk
         public string Name { get; }
         public Customer(string name)
         {
+            Name = name;
         }
     }
 }
