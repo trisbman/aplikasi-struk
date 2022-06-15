@@ -3,7 +3,7 @@ using System.Timers;
 
 namespace aplikasi_struk
 {
-    class Clock
+    class Timer
     {
         private System.Timers.Timer aTimer;
 
