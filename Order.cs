@@ -14,8 +14,14 @@ namespace aplikasi_struk
         public class OrderItem
         {
             private int Id;
-            public List<Dish> DishList = new List<Dish>();
+            public List<Dish> DishList = new();
             public string Note;
+            public PaymentMethod paymentMethod;
+
+            public OrderItem()
+            {
+
+            }
 
             //public Dish MainDish;
             //public AddOn AddOn;

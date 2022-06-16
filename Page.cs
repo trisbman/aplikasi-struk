@@ -15,7 +15,7 @@ namespace aplikasi_struk
         public Page(string title = "Toko Keren", int pageWidth = 40)
         {
             Console.Title = title; Width = pageWidth;
-            Console.SetWindowSize(Width, Console.WindowHeight); // only on windows
+            if (OperatingSystem.IsWindows()) Console.SetWindowSize(Width, Console.WindowHeight); // only on windows
         }
         #endregion
 
@@ -82,6 +82,13 @@ namespace aplikasi_struk
             for (int i = 0; i < dishes.Length; i++)
             {
                 WriteLine(i + 1 + ". " + dishes[i].Name);
+            }
+        }
+        public void CreatePMList(PaymentMethod[] paymentMethods)
+        {
+            for (int i = 0; i < paymentMethods.Length; i++)
+            {
+                WriteLine(i + 1 + ". " + paymentMethods[i].Name);
             }
         }
 

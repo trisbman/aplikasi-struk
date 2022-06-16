@@ -71,6 +71,7 @@
             new Other(7001, "Es krim", 15000),
             new Other(7002, "Bakpao", 12500)
         };
+
         public static Category[] Categories = {
             new Category(MainDishes, "Makanan"),
             new Category(Beverages, "Minuman"),
