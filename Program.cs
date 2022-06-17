@@ -10,6 +10,10 @@ namespace aplikasi_struk
 
         class Handler
         {
+            static void HandleAddOn(AddOn addOn, Order.OrderItem orderItem)
+            {
+
+            }
             static void HandleDish(Dish dish, Order.OrderItem orderItem)
             {
                 orderItem.DishList.Add(dish);
@@ -19,13 +23,16 @@ namespace aplikasi_struk
 
                 if (dish.GetType().IsAssignableFrom((new Dish(0, "", 0)).GetType()))
                 {
-                    // 
+                    bool repeat = true;
+                    do
+                    {
+                    } while (!repeat);
                 }
-                else
-                {
-                    Console.Write("Tekan Enter untuk melanjutkan");
-                    Console.ReadLine();
-                }
+
+
+                Console.Write("Tekan Enter untuk melanjutkan");
+                Console.ReadLine();
+
             }
             public static void HandleCategory(Dish[] dishes, Order.OrderItem orderItem)
             {
@@ -74,8 +81,8 @@ namespace aplikasi_struk
 
                 // config            
                 i++;
-                msg = "Pilih kategori pesanan ke-" + i; 
-                fired = true; 
+                msg = "Pilih kategori pesanan ke-" + i;
+                fired = true;
             } while (repeat);
 
             page.Clear();
