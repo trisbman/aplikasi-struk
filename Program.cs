@@ -54,10 +54,12 @@ namespace aplikasi_struk
 
         static void Main(string[] args)
         {
+        mulai:
             page = new Page(Store.Name, 50);
             page.WriteTitle(Store.Name);
             Customer customer = new(page.AskInput("Silakan masukkan nama pelanggan: "));
 
+        pesan:
             page.Clear();
 
             Order order = new();
@@ -85,16 +87,58 @@ namespace aplikasi_struk
                 fired = true;
             } while (repeat);
 
+        konfirmasi:
             page.Clear();
 
             Console.WriteLine("Daftar pesanan: ");
             page.CreateDishList(orderItem.DishList.ToArray());
             Console.Write("Lanjutkan? [y/n]: ");
+            string lanjut = Console.ReadLine().ToLower();
 
             // Tudabes: handle inputan `confirmed` selain "y"
-            if (Console.ReadLine().ToLower() == "n")
+
+            if (lanjut == "y")
             {
-                return;
+                Console.Write("Sedang memproses pesanan Anda");
+                page.Loading();
+            }
+            else if (lanjut == "n")
+            {
+                Console.Write("Ingin mengulang pemesanan? [y/n] : ");
+                string ulang = Console.ReadLine().ToLower();
+                if (ulang == "y")
+                {
+                    Console.Write("Sedang mengulang pemesanan anda");
+                    page.Loading();
+                    goto pesan;
+                }
+                else if (ulang == "n")
+                {
+                    Console.Write("Terima kasih");
+                    page.Loading();
+                    Console.Clear();
+                    goto mulai;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("INPUTAN ANDA TIDAK VALID!\nSILAHKAN KONFIRMASI ULANG");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write("Tekan Enter untuk melanjutkan");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    goto konfirmasi;
+                }
+
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("INPUTAN ANDA TIDAK VALID!\nSILAHKAN KONFIRMASI ULANG");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write("Tekan Enter untuk melanjutkan");
+                Console.ReadKey();
+                goto konfirmasi;
             }
 
             page.Clear();
