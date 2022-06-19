@@ -16,10 +16,10 @@ namespace aplikasi_struk
             }
             static void HandleDish(Dish dish, Order.OrderItem orderItem)
             {
-                orderItem.DishList.Add(dish);
+                orderItem.Dish = dish;
 
                 Console.WriteLine();
-                Console.WriteLine(dish.Name + " telah ditambahkan ke pesanan ke-" + orderItem.DishList.ToArray().Length + "!");
+                Console.WriteLine(dish.Name + " telah ditambahkan ke pesanan ke-" + orderItem.Id + "!");
 
                 if (dish.GetType().IsAssignableFrom((new Dish(0, "", 0)).GetType()))
                 {
@@ -43,9 +43,9 @@ namespace aplikasi_struk
 
             }
 
-            public static void HandlePayment(PaymentMethod paymentMethod, Order.OrderItem orderItem)
+            public static void HandlePayment(PaymentMethod paymentMethod, Order order)
             {
-                orderItem.paymentMethod = paymentMethod;
+                order.paymentMethod = paymentMethod;
                 Console.WriteLine(paymentMethod.Name + " telah dipilih sebagai metode pembayaran!");
                 Console.Write("Tekan Enter untuk melanjutkan");
                 Console.ReadLine();
@@ -54,16 +54,18 @@ namespace aplikasi_struk
 
         static void Main(string[] args)
         {
+        #region start
         mulai:
             page = new Page(Store.Name, 50);
             page.WriteTitle(Store.Name);
             Customer customer = new(page.AskInput("Silakan masukkan nama pelanggan: "));
+        #endregion 
 
+        #region order
         pesan:
             page.Clear();
 
             Order order = new();
-            Order.OrderItem orderItem = order.NewItem();
 
             // config
             bool fired = false;
@@ -78,24 +80,32 @@ namespace aplikasi_struk
                 page.CreateCategoryList(Menu.Categories);
                 int categoryId = int.Parse(page.AskInput("Masukkan pilihan", Menu.Categories.Length)) - 1;
                 Console.WriteLine();
-                if (categoryId == -1) repeat = false;
-                else Handler.HandleCategory(Menu.Categories[categoryId].Dishes, orderItem);
+                if (categoryId == -1)
+                {
+                    repeat = false;
+                }
+                else
+                {
+                    Order.OrderItem orderItem = order.NewItem();
+                    // TODO: extract other handler from end of each handler and use it here instead
+                    Handler.HandleCategory(Menu.Categories[categoryId].Dishes, orderItem);
+                }
 
                 // config            
                 i++;
                 msg = "Pilih kategori pesanan ke-" + i;
                 fired = true;
             } while (repeat);
+        #endregion
 
+        #region confirmation
         konfirmasi:
             page.Clear();
 
             Console.WriteLine("Daftar pesanan: ");
-            page.CreateDishList(orderItem.DishList.ToArray());
+            page.CreateOIList(order.ItemList.ToArray());
             Console.Write("Lanjutkan? [y/n]: ");
             string lanjut = Console.ReadLine().ToLower();
-
-            // Tudabes: handle inputan `confirmed` selain "y"
 
             if (lanjut == "y")
             {
@@ -140,16 +150,16 @@ namespace aplikasi_struk
                 Console.ReadKey();
                 goto konfirmasi;
             }
+            #endregion
 
             page.Clear();
             Console.WriteLine("Pilih metode pembayaran:");
             page.CreatePMList(paymentMethod);
             int pmId = int.Parse(page.AskInput("Masukkan pilihan", paymentMethod.Length)) - 1;
-            Handler.HandlePayment(paymentMethod[pmId], orderItem);
+            Handler.HandlePayment(paymentMethod[pmId], order);
 
 
             // JQ: Bikin output pesanan (lanjutan kodingan ini)
-            // FGS: Input Menu di `Menu.cs` (sekarang itu asal2an)
             // C: Bikin fitur catatan hehehe
 
             Console.ReadLine();

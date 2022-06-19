@@ -9,7 +9,7 @@
         {
             Id = id;
             Name = name;
-            Fee = fee;
+            Fee = fee; // TODO: change fee to cashback/discount
         }
     }
     class Emoney : PaymentMethod

@@ -79,6 +79,7 @@ namespace aplikasi_struk
         }
         public void CreateDishList(Dish[] dishes)
         {
+            // TODO: make multi page instead of a long single page
             for (int i = 0; i < dishes.Length; i++)
             {
                 WriteLine(i + 1 + ". " + dishes[i].Name);
@@ -89,6 +90,13 @@ namespace aplikasi_struk
             for (int i = 0; i < paymentMethods.Length; i++)
             {
                 WriteLine(i + 1 + ". " + paymentMethods[i].Name);
+            }
+        }
+        public void CreateOIList(Order.OrderItem[] orderItems)
+        {            
+            for (int i = 0; i < orderItems.Length; i++)
+            {
+                WriteLine(i + 1 + ". " + orderItems[i].Dish.Name);
             }
         }
 
@@ -124,5 +132,7 @@ namespace aplikasi_struk
             Console.WriteLine(text);
         }
         #endregion
+
+        // TODO: wait for any user response method
     }
 }

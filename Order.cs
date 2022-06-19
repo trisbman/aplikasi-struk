@@ -6,21 +6,28 @@ namespace aplikasi_struk
     class Order
     {
         private int Id;
+        private int LastItemId = 0;
         private DateTime DateTime;
+        public List<OrderItem> ItemList = new();
+        public PaymentMethod paymentMethod;
+
         public OrderItem NewItem()
         {
-            return new OrderItem();
+            OrderItem orderItem = new OrderItem(LastItemId + 1);
+            ItemList.Add(orderItem);
+            return orderItem;
         }
+
         public class OrderItem
         {
-            private int Id;
-            public List<Dish> DishList = new();
             public string Note;
-            public PaymentMethod paymentMethod;
+            public Dish Dish;
+            public AddOn[] AddOns;
+            public int Id;
 
-            public OrderItem()
+            public OrderItem(int id)
             {
-
+                Id = id;
             }
 
             //public Dish MainDish;
