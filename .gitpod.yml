@@ -1,1 +1,4 @@
 image: gitpod/workspace-dotnet
+ports:
+  - port: 10000
+    visibility: public
