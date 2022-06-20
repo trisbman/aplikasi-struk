@@ -6,7 +6,7 @@ namespace aplikasi_struk
     {
         // variables
         static Page page;
-        static readonly PaymentMethod[] paymentMethod = PaymentMethods.Default;
+        static readonly PaymentMethod[] paymentMethods = PaymentMethods.Default;
 
         class Handler
         {
@@ -17,35 +17,15 @@ namespace aplikasi_struk
             public static void HandleDish(Dish dish, Order.OrderItem orderItem)
             {
                 orderItem.Dish = dish;
-
-                Console.WriteLine();
-                Console.WriteLine(dish.Name + " telah ditambahkan ke pesanan ke-" + orderItem.Id + "!");
-                
-                if (dish.GetType().IsAssignableFrom((new Dish(0, "", 0)).GetType()))
-                {
-                    bool repeat = true;
-                    do
-                    {
-                        // TODO: HandleAddOn()
-                    } while (!repeat);
-                }
-
-                page.AskConfirmation();
             }
-            public static int HandleCategory(Dish[] dishes, Order.OrderItem orderItem)
+            public static void HandleNote(string note, Order.OrderItem orderItem)
             {
-                Console.WriteLine("Pilihan yang tersedia: ");
-                page.CreateDishList(dishes);
-                int dishIndex = int.Parse(page.AskInput("Masukkan pilihan", dishes.Length)) - 1;
-                return dishIndex;
-
+                orderItem.Note = note;
             }
 
             public static void HandlePayment(PaymentMethod paymentMethod, Order order)
             {
                 order.paymentMethod = paymentMethod;
-                Console.WriteLine(paymentMethod.Name + " telah dipilih sebagai metode pembayaran!");
-                page.AskConfirmation();
             }
         }
 
@@ -76,6 +56,7 @@ namespace aplikasi_struk
                 if (fired) Console.WriteLine("0. Selesai");
                 page.CreateCategoryList(Menu.Categories);
                 int categoryId = int.Parse(page.AskInput("Masukkan pilihan", Menu.Categories.Length)) - 1;
+
                 Console.WriteLine();
                 if (categoryId == -1)
                 {
@@ -84,11 +65,31 @@ namespace aplikasi_struk
                 else
                 {
                     Order.OrderItem orderItem = order.NewItem();
-                    
+
                     Dish[] dishes = Menu.Categories[categoryId].Dishes;
-                    int dishIndex = Handler.HandleCategory(dishes, orderItem);
+                    Console.WriteLine("Pilihan yang tersedia: ");
+                    page.CreateDishList(dishes);
+                    int dishIndex = int.Parse(page.AskInput("Masukkan pilihan", dishes.Length)) - 1;
                     Dish dish = dishes[dishIndex];
                     Handler.HandleDish(dish, orderItem);
+
+
+                    if (dish.GetType().IsAssignableFrom((new Dish(0, "", 0)).GetType()))
+                    {
+                        bool repeatAddOn = true;
+                        do
+                        {
+                            // FGS: HandleAddOn()
+                        } while (!repeatAddOn);
+                    }
+
+                    string note = page.AskInput("Catatan (kosongkan jika tidak ada): ");
+                    bool isNote = Convert.ToBoolean(note.Length);
+                    if (isNote) Handler.HandleNote(note, orderItem);
+
+                    Console.WriteLine();
+                    Console.WriteLine(dish.Name + " telah ditambahkan ke pesanan ke-" + orderItem.Id + "!");
+                    page.AskConfirmation();
                 }
 
                 // config            
@@ -152,13 +153,14 @@ namespace aplikasi_struk
 
             page.Clear();
             Console.WriteLine("Pilih metode pembayaran:");
-            page.CreatePMList(paymentMethod);
-            int pmId = int.Parse(page.AskInput("Masukkan pilihan", paymentMethod.Length)) - 1;
-            Handler.HandlePayment(paymentMethod[pmId], order);
+            page.CreatePMList(paymentMethods);
+            int pmIndex = int.Parse(page.AskInput("Masukkan pilihan", paymentMethods.Length)) - 1;
+            PaymentMethod paymentMethod = paymentMethods[pmIndex];
+            Handler.HandlePayment(paymentMethod, order);
+            Console.WriteLine(paymentMethod.Name + " telah dipilih sebagai metode pembayaran!");
+            page.AskConfirmation();
 
-
-            // JQ: Bikin output pesanan (lanjutan kodingan ini)
-            // C: Bikin fitur catatan hehehe
+            // JQ + Tudabes: Bikin output pesanan (lanjutan kodingan ini)
 
             Console.ReadLine();
             Console.ReadKey();

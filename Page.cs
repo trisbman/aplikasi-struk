@@ -21,20 +21,26 @@ namespace aplikasi_struk
 
         public int TopMargin = 3;
         private void ClearLine()
-        {
+        {            
             Console.SetCursorPosition(0, Console.CursorTop);
             Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(0, Console.CursorTop - 1);
-        }
-        public void Clear()
-        {
-            ClearLine(TopMargin);
         }
         private void ClearLine(int n)
         {
             int m = Console.GetCursorPosition().Top - n - 1;
             for (int i = 0; i < m + 2; i++) ClearLine();
+            ScrollToTop();
             Console.SetCursorPosition(0, n);
+        }
+
+        public void ScrollToTop()
+        {
+            Console.SetCursorPosition(0, 0);
+        }
+        public void Clear()
+        {
+            ClearLine(TopMargin);
         }
 
         #region Writer
@@ -96,7 +102,11 @@ namespace aplikasi_struk
         {
             for (int i = 0; i < orderItems.Length; i++)
             {
-                WriteLine(i + 1 + ". " + orderItems[i].Dish.Name);
+                Write(i + 1 + ". " + orderItems[i].Dish.Name);
+                if (orderItems[i].Note != null)
+                    WriteLine(" (catatan: " + orderItems[i].Note + ")");
+                else
+                    WriteLine("");
             }
         }
 
