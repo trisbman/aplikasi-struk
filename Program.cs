@@ -104,6 +104,7 @@ namespace aplikasi_struk
 
             Console.WriteLine("Daftar pesanan: ");
             page.CreateOIList(order.ItemList.ToArray());
+            // TODO: y/n are the English options, how about Indonesian? 
             Console.Write("Lanjutkan? [y/n]: ");
             string lanjut = Console.ReadLine().ToLower();
 
