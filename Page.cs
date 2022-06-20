@@ -93,7 +93,7 @@ namespace aplikasi_struk
             }
         }
         public void CreateOIList(Order.OrderItem[] orderItems)
-        {            
+        {
             for (int i = 0; i < orderItems.Length; i++)
             {
                 WriteLine(i + 1 + ". " + orderItems[i].Dish.Name);
@@ -119,8 +119,19 @@ namespace aplikasi_struk
             for (int i = 0; i < n; i++)
             {
                 Write(".");
-                System.Threading.Thread.Sleep(interval);
+                Pause(interval);
             }
+        }
+
+        private void Pause(int duration = 500)
+        {
+            System.Threading.Thread.Sleep(duration);
+        }
+
+        public void AskConfirm(string msg = "Tekan Enter untuk melanjutkan")
+        {
+            Console.WriteLine(msg);
+            Console.ReadKey();
         }
 
         private void Write(string text)
@@ -132,7 +143,5 @@ namespace aplikasi_struk
             Console.WriteLine(text);
         }
         #endregion
-
-        // TODO: wait for any user response method
     }
 }
