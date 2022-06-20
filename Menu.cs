@@ -14,7 +14,7 @@
     }
     class Beverage : Dish
     {
-        public Beverage(int Id, string BaseString, int Price) : base(Id, BaseString, Price)
+        public Beverage(int Id, string Name, int Price) : base(Id, Name, Price)
         {
 
         }
@@ -22,7 +22,7 @@
 
     class AddOn : Dish
     {
-        public AddOn(int Id, string BaseString, int Price) : base(Id, BaseString, Price)
+        public AddOn(int Id, string Name, int Price) : base(Id, Name, Price)
         {
 
         }
@@ -30,7 +30,7 @@
 
     class Other : Dish
     {
-        public Other(int Id, string BaseString, int Price) : base(Id, BaseString, Price)
+        public Other(int Id, string Name, int Price) : base(Id, Name, Price)
         {
 
         }
@@ -50,7 +50,7 @@
     {
         public static Dish[] MainDishes =
         {
-           new Dish(1001, "Pau Ayam Steam", 20800),
+            new Dish(1001, "Pau Ayam Steam", 20800),
             new Dish(1002, "Sio Mai Ayam", 21900),
             new Dish(1003, "Sio Mai Rumput Laut", 26300),
             new Dish(1004, "Sio Mai Jala-Jala", 21900),
@@ -80,7 +80,7 @@
 
         public static Beverage[] Beverages =
         {
-           new Beverage(3001, "Liang Teh 5 Rasa", 14200),
+            new Beverage(3001, "Liang Teh 5 Rasa", 14200),
             new Beverage(3002, "Orange Juice", 19700),
             new Beverage(3003, "Ice Milk Tea", 19700),
             new Beverage(3004, "Ice Lime Juice", 14200),
@@ -95,7 +95,7 @@
 
         public static Other[] Others =
         {
-           new Other(7001, "Lapis Medan", 9600),
+            new Other(7001, "Lapis Medan", 9600),
             new Other(7002, "Puding Special", 13100),
             new Other(7002, "Puding Kelapa Thai", 3000),
             new Other(7002, "Pancake Avocado", 15700),
