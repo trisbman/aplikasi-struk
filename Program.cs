@@ -14,30 +14,30 @@ namespace aplikasi_struk
             {
 
             }
-            static void HandleDish(Dish dish, Order.OrderItem orderItem)
+            public static void HandleDish(Dish dish, Order.OrderItem orderItem)
             {
                 orderItem.Dish = dish;
 
                 Console.WriteLine();
                 Console.WriteLine(dish.Name + " telah ditambahkan ke pesanan ke-" + orderItem.Id + "!");
-
+                
                 if (dish.GetType().IsAssignableFrom((new Dish(0, "", 0)).GetType()))
                 {
                     bool repeat = true;
                     do
                     {
+                        // TODO: HandleAddOn()
                     } while (!repeat);
                 }
 
                 page.AskConfirm();
-
             }
-            public static void HandleCategory(Dish[] dishes, Order.OrderItem orderItem)
+            public static int HandleCategory(Dish[] dishes, Order.OrderItem orderItem)
             {
                 Console.WriteLine("Pilihan yang tersedia: ");
                 page.CreateDishList(dishes);
                 int dishIndex = int.Parse(page.AskInput("Masukkan pilihan", dishes.Length)) - 1;
-                HandleDish(dishes[dishIndex], orderItem);
+                return dishIndex;
 
             }
 
@@ -84,8 +84,11 @@ namespace aplikasi_struk
                 else
                 {
                     Order.OrderItem orderItem = order.NewItem();
-                    // TODO: extract other handler from end of each handler and use it here instead
-                    Handler.HandleCategory(Menu.Categories[categoryId].Dishes, orderItem);
+                    
+                    Dish[] dishes = Menu.Categories[categoryId].Dishes;
+                    int dishIndex = Handler.HandleCategory(dishes, orderItem);
+                    Dish dish = dishes[dishIndex];
+                    Handler.HandleDish(dish, orderItem);
                 }
 
                 // config            
@@ -140,7 +143,7 @@ namespace aplikasi_struk
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("INPUTAN ANDA TIDAK VALID!\nSILAHKAN KONFIRMASI ULANG");
-                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.ResetColor();
                 page.AskConfirm();
                 goto konfirmasi;
             }
