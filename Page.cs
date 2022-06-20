@@ -113,6 +113,11 @@ namespace aplikasi_struk
             string input = Console.ReadLine();
             return input;
         }
+        public void AskConfirmation(string msg = "Tekan Enter untuk melanjutkan")
+        {
+            Console.WriteLine(msg);
+            Console.ReadKey();
+        }
 
         public void Loading(int interval = 500, int n = 3)
         {
@@ -126,12 +131,6 @@ namespace aplikasi_struk
         private void Pause(int duration = 500)
         {
             System.Threading.Thread.Sleep(duration);
-        }
-
-        public void AskConfirm(string msg = "Tekan Enter untuk melanjutkan")
-        {
-            Console.WriteLine(msg);
-            Console.ReadKey();
         }
 
         private void Write(string text)

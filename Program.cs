@@ -30,7 +30,7 @@ namespace aplikasi_struk
                     } while (!repeat);
                 }
 
-                page.AskConfirm();
+                page.AskConfirmation();
             }
             public static int HandleCategory(Dish[] dishes, Order.OrderItem orderItem)
             {
@@ -45,7 +45,7 @@ namespace aplikasi_struk
             {
                 order.paymentMethod = paymentMethod;
                 Console.WriteLine(paymentMethod.Name + " telah dipilih sebagai metode pembayaran!");
-                page.AskConfirm();
+                page.AskConfirmation();
             }
         }
 
@@ -134,7 +134,7 @@ namespace aplikasi_struk
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("INPUTAN ANDA TIDAK VALID!\nSILAHKAN KONFIRMASI ULANG");
                     Console.ForegroundColor = ConsoleColor.Gray;
-                    page.AskConfirm();
+                    page.AskConfirmation();
                     goto konfirmasi;
                 }
 
@@ -144,7 +144,7 @@ namespace aplikasi_struk
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("INPUTAN ANDA TIDAK VALID!\nSILAHKAN KONFIRMASI ULANG");
                 Console.ResetColor();
-                page.AskConfirm();
+                page.AskConfirmation();
                 goto konfirmasi;
             }
             #endregion
