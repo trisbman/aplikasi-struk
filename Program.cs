@@ -161,6 +161,31 @@ namespace aplikasi_struk
             page.AskConfirmation();
 
             // JQ + Tudabes: Bikin output pesanan (lanjutan kodingan ini)
+            page.Clear();
+            Console.WriteLine();
+            Console.WriteLine(new string(' ',14)+Store.Address);
+            Console.WriteLine(new string('-', 50));
+            Console.WriteLine();
+            Console.Write("Tanggal Pembelian   ");
+            Console.WriteLine(new string(' ',9)+DateTime.Now.ToString("dd/MM/yyyy   hh:mm tt"));
+            Console.Write("ID Pembelian        ");
+            Console.WriteLine(new string(' ', 9));
+            //perlu id pesanan
+            Console.Write("Nama kasir          ");
+            Console.WriteLine(new string(' ', 9)+Store.CashierName);
+            Console.Write("Nama pelanggan      ");
+            Console.WriteLine(new string(' ', 9)+customer.Name);
+            Console.WriteLine(new string('-', 50));
+            //daftar pesanan dengan harga, catatan
+            Console.WriteLine(new string('-', 50));
+            Console.Write("Total               ");
+            Console.WriteLine();
+            //perlu masukan total
+            Console.WriteLine(new string('-', 50));
+            Console.Write("Pembayaran          ");
+            Console.WriteLine(new string(' ', 9));
+            //perlu jenis pembayaran
+
 
             Console.ReadLine();
             Console.ReadKey();
