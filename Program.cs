@@ -12,7 +12,7 @@ namespace aplikasi_struk
         {
             static void HandleAddOn(AddOn addOn, Order.OrderItem orderItem)
             {
-
+                orderItem.AddOns.Add(addOn);
             }
             public static void HandleDish(Dish dish, Order.OrderItem orderItem)
             {

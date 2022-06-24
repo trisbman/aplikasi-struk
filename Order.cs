@@ -9,6 +9,7 @@ namespace aplikasi_struk
         private int LastItemId = 0;
         private DateTime DateTime;
         public List<OrderItem> ItemList = new();
+        
         public PaymentMethod paymentMethod;
 
         public OrderItem NewItem()
@@ -22,7 +23,7 @@ namespace aplikasi_struk
         {
             public string Note;
             public Dish Dish;
-            public AddOn[] AddOns;
+            public List<AddOn> AddOns = new();
             public int Id;
 
             public OrderItem(int id)
