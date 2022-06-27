@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace aplikasi_struk
 {
@@ -30,7 +29,7 @@ namespace aplikasi_struk
             Line.Draw('-', 50);
             Console.WriteLine();
 
-            Console.Write("Waktu Pembelian"); 
+            Console.Write("Waktu Pembelian");
             page.WriteFrom(DateTime.Now.ToString("dd/MM/yyyy   hh:mm tt"));
 
             Console.Write("ID Pembelian");

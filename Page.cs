@@ -129,7 +129,7 @@ namespace aplikasi_struk
             Console.WriteLine(msg);
             Console.ReadKey();
         }
-        
+
         public bool Prompt(string question)
         {
             return true;
