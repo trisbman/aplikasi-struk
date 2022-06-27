@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace aplikasi_struk
 {
@@ -10,23 +11,61 @@ namespace aplikasi_struk
 
         class Handler
         {
-            static void HandleAddOn(AddOn addOn, Order.OrderItem orderItem)
-            {
-                orderItem.AddOns.Add(addOn);
-            }
             public static void HandleDish(Dish dish, Order.OrderItem orderItem)
             {
                 orderItem.Dish = dish;
             }
-            public static void HandleNote(string note, Order.OrderItem orderItem)
-            {
-                orderItem.Note = note;
-            }
-
             public static void HandlePayment(PaymentMethod paymentMethod, Order order)
             {
                 order.paymentMethod = paymentMethod;
             }
+        }
+
+        static void CreateInvoice(Customer customer, Order order)
+        {
+            page.Clear();
+
+            Console.WriteLine();
+            Console.WriteLine(new string(' ', 14) + Store.Address);
+            Line.Draw('-', 50);
+            Console.WriteLine();
+
+            Console.Write("Waktu Pembelian"); 
+            page.WriteFrom(DateTime.Now.ToString("dd/MM/yyyy   hh:mm tt"));
+
+            Console.Write("ID Pembelian");
+            page.WriteFrom(Store.GetCode());
+
+            Console.Write("Nama kasir");
+            page.WriteFrom(Store.CashierName);
+
+            Console.Write("Nama pelanggan");
+            page.WriteFrom(customer.Name);
+
+            Console.WriteLine();
+            Line.Draw('-', 50);
+
+            Order.OrderItem[] orderItems = order.ItemList.ToArray();
+            for (int i = 0; i < orderItems.Length; i++)
+            {
+                Console.Write(i + 1 + ". " + orderItems[i].Dish.Name);
+                page.WriteFrom(page.FormatInt(orderItems[i].Dish.Price));
+                Line.Draw(' ', 20);
+
+                Console.WriteLine();
+            }
+
+            Console.Write("Total");
+            page.WriteFrom(page.FormatInt(order.GetTotal()));
+            Line.Draw('-', 50);
+            Console.Write("Pembayaran");
+            page.WriteFrom(order.paymentMethod.Name);
+
+
+            page.Break();
+            int duration = 5 + order.ItemList.Count * 5;
+            Timer timer = new("Program akan tutup otomatis dalam", duration);
+            timer.Start();
         }
 
         static void Main(string[] args)
@@ -73,20 +112,6 @@ namespace aplikasi_struk
                     Dish dish = dishes[dishIndex];
                     Handler.HandleDish(dish, orderItem);
 
-
-                    if (dish.GetType().IsAssignableFrom((new Dish(0, "", 0)).GetType()))
-                    {
-                        bool repeatAddOn = true;
-                        do
-                        {
-                            // FGS: HandleAddOn()
-                        } while (!repeatAddOn);
-                    }
-
-                    string note = page.AskInput("Catatan (kosongkan jika tidak ada): ");
-                    bool isNote = Convert.ToBoolean(note.Length);
-                    if (isNote) Handler.HandleNote(note, orderItem);
-
                     Console.WriteLine();
                     Console.WriteLine(dish.Name + " telah ditambahkan ke pesanan ke-" + orderItem.Id + "!");
                     page.AskConfirmation();
@@ -111,8 +136,6 @@ namespace aplikasi_struk
 
             if (lanjut == "y")
             {
-                Console.Write("Sedang memproses pesanan Anda");
-                page.Loading();
             }
             else if (lanjut == "n")
             {
@@ -160,34 +183,8 @@ namespace aplikasi_struk
             Console.WriteLine(paymentMethod.Name + " telah dipilih sebagai metode pembayaran!");
             page.AskConfirmation();
 
-            // JQ + Tudabes: Bikin output pesanan (lanjutan kodingan ini)
-            page.Clear();
-            Console.WriteLine();
-            Console.WriteLine(new string(' ',14)+Store.Address);
-            Console.WriteLine(new string('-', 50));
-            Console.WriteLine();
-            Console.Write("Tanggal Pembelian   ");
-            Console.WriteLine(new string(' ',9)+DateTime.Now.ToString("dd/MM/yyyy   hh:mm tt"));
-            Console.Write("ID Pembelian        ");
-            Console.WriteLine(new string(' ', 9));
-            //perlu id pesanan
-            Console.Write("Nama kasir          ");
-            Console.WriteLine(new string(' ', 9)+Store.CashierName);
-            Console.Write("Nama pelanggan      ");
-            Console.WriteLine(new string(' ', 9)+customer.Name);
-            Console.WriteLine(new string('-', 50));
-            //daftar pesanan dengan harga, catatan
-            Console.WriteLine(new string('-', 50));
-            Console.Write("Total               ");
-            Console.WriteLine();
-            //perlu masukan total
-            Console.WriteLine(new string('-', 50));
-            Console.Write("Pembayaran          ");
-            Console.WriteLine(new string(' ', 9));
-            //perlu jenis pembayaran
+            CreateInvoice(customer, order);
 
-
-            Console.ReadLine();
             Console.ReadKey();
         }
     }

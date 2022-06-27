@@ -12,7 +12,7 @@ namespace aplikasi_struk
         private static int Code = 123456;
         private static string Prefix = "FF";
 
-        public string GetCode()
+        public static string GetCode()
         {
             return Prefix + Code;
         }

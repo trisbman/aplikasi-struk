@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace aplikasi_struk
 {
@@ -21,7 +22,7 @@ namespace aplikasi_struk
 
         public int TopMargin = 3;
         private void ClearLine()
-        {            
+        {
             Console.SetCursorPosition(0, Console.CursorTop);
             Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(0, Console.CursorTop - 1);
@@ -109,7 +110,7 @@ namespace aplikasi_struk
                     WriteLine("");
             }
         }
-
+        //
 
         public string AskInput(string question)
         {
@@ -128,6 +129,11 @@ namespace aplikasi_struk
             Console.WriteLine(msg);
             Console.ReadKey();
         }
+        
+        public bool Prompt(string question)
+        {
+            return true;
+        }
 
         public void Loading(int interval = 500, int n = 3)
         {
@@ -143,6 +149,30 @@ namespace aplikasi_struk
             System.Threading.Thread.Sleep(duration);
         }
 
+        public string FormatInt(int n)
+        {
+            return n.ToString("C", CultureInfo.CurrentCulture);
+        }
+        public void Break(int n = 3)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                WriteLine("");
+            }
+        }
+        public void WriteFrom(string text)
+        {
+            int n = Width * 9 / 16;
+            Console.SetCursorPosition(n, Console.GetCursorPosition().Top);
+            Write(text);
+            Console.SetCursorPosition(0, Console.GetCursorPosition().Top + 1);
+        }
+        public void WriteFrom(string text, int n)
+        {
+            Console.SetCursorPosition(n, Console.GetCursorPosition().Top);
+            Write(text);
+            Console.SetCursorPosition(0, Console.GetCursorPosition().Top + 1);
+        }
         private void Write(string text)
         {
             Console.Write(text);

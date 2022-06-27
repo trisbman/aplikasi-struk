@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace aplikasi_struk
 {
@@ -7,6 +8,7 @@ namespace aplikasi_struk
     {
         private int Id;
         private int LastItemId = 0;
+        private int Total = 0;
         private DateTime DateTime;
         public List<OrderItem> ItemList = new();
         
@@ -19,11 +21,20 @@ namespace aplikasi_struk
             return orderItem;
         }
 
+        public int GetTotal ()
+        {
+            foreach (var item in ItemList)
+            {
+                Total += item.Dish.Price;
+            }
+
+            return Total;
+        }
+
         public class OrderItem
         {
             public string Note;
             public Dish Dish;
-            public List<AddOn> AddOns = new();
             public int Id;
 
             public OrderItem(int id)

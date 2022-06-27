@@ -20,14 +20,6 @@
         }
     }
 
-    class AddOn : Dish
-    {
-        public AddOn(int Id, string Name, int Price) : base(Id, Name, Price)
-        {
-
-        }
-    }
-
     class Other : Dish
     {
         public Other(int Id, string Name, int Price) : base(Id, Name, Price)
@@ -70,14 +62,6 @@
             new Dish(1018, "Lobak Ebi", 21900)
         };
 
-        public static AddOn[] AddOns =
-        {
-            new AddOn(2001, "Telur Dadar", 7300),
-            new AddOn(2002, "Telur Mata Sapi", 7300),
-            new AddOn(2003, "Nasi Putih", 6000),
-            new AddOn(2004, "Nasi Prang", 8500)
-        };
-
         public static Beverage[] Beverages =
         {
             new Beverage(3001, "Liang Teh 5 Rasa", 14200),
@@ -108,8 +92,6 @@
             new Category(MainDishes, "Makanan"),
             new Category(Beverages, "Minuman"),
             new Category(Others, "Lain-lain")
-
         };
-
     }
 }
